@@ -1,0 +1,3 @@
+### AWS infrastructure for hosting ObliczaKalisza app.
+
+🛠️ Readme under construction...
