@@ -82,9 +82,9 @@ resource "aws_route_table_association" "public_route_association_a" {
 }
 
 resource "aws_security_group" "default" {
-  name        = "stage-default-security-group"
-  vpc_id      = aws_vpc.this.id
-  depends_on  = [aws_vpc.this]
+  name       = "stage-default-security-group"
+  vpc_id     = aws_vpc.this.id
+  depends_on = [aws_vpc.this]
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_ssh" {
