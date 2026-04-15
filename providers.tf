@@ -1,6 +1,6 @@
 provider "aws" {
-  region                   = "eu-west-1"
-  shared_credentials_files = ["/home/kuba/.aws/credentials"]
+  region                   = var.aws_region
+  shared_credentials_files = var.credentials_files
 }
 
 provider "random" {}

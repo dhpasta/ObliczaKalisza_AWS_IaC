@@ -1,47 +1,47 @@
 resource "aws_vpc" "this" {
   cidr_block = "10.0.0.0/16"
   tags = {
-    Name = "stage-vpc"
+    Name = "${var.app_name}_vpc"
   }
 }
 
 resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.this.id
   tags = {
-    Name = "stage-gateway"
+    Name = "${var.app_name}_gateway"
   }
 }
 
 resource "aws_subnet" "private_subnet_a" {
   vpc_id                  = aws_vpc.this.id
   cidr_block              = "10.0.1.0/24"
-  availability_zone       = "eu-west-1a"
+  availability_zone       = "${var.aws_region}a"
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "stage-private-subnet-a"
+    Name = "${var.app_name}_private_subnet_a"
   }
 }
 
 resource "aws_subnet" "private_subnet_b" {
   vpc_id                  = aws_vpc.this.id
   cidr_block              = "10.0.2.0/24"
-  availability_zone       = "eu-west-1b"
+  availability_zone       = "${var.aws_region}b"
   map_public_ip_on_launch = false
 
   tags = {
-    Name = "stage-private-subnet-b"
+    Name = "${var.app_name}_private_subnet_b"
   }
 }
 
 resource "aws_subnet" "public_subnet_a" {
   vpc_id                  = aws_vpc.this.id
   cidr_block              = "10.0.0.0/24"
-  availability_zone       = "eu-west-1a"
+  availability_zone       = "${var.aws_region}a"
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "stage-public-subnet-a"
+    Name = "${var.app_name}_public_subnet_a"
   }
 }
 
@@ -49,7 +49,7 @@ resource "aws_route_table" "private_route" {
   vpc_id = aws_vpc.this.id
 
   tags = {
-    Name = "stage-private-route-table"
+    Name = "${var.app_name}_private_route_table"
   }
 }
 
@@ -62,7 +62,7 @@ resource "aws_route_table" "public_route" {
   }
 
   tags = {
-    Name = "stage-public-route-table"
+    Name = "${var.app_name}_public_route_table"
   }
 }
 
@@ -82,7 +82,7 @@ resource "aws_route_table_association" "public_route_association_a" {
 }
 
 resource "aws_security_group" "default" {
-  name       = "stage-default-security-group"
+  name       = "${var.app_name}_default_security_group"
   vpc_id     = aws_vpc.this.id
   depends_on = [aws_vpc.this]
 }

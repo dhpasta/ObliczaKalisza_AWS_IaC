@@ -15,31 +15,31 @@ data "aws_ami" "ubuntu" {
 }
 
 
-resource "aws_instance" "oblicza" {
+resource "aws_instance" "ec2" {
   ami           = data.aws_ami.ubuntu.id
-  instance_type = "t3.micro"
+  instance_type = var.instance_type
 
   subnet_id                   = aws_subnet.public_subnet_a.id
   associate_public_ip_address = true
 
   vpc_security_group_ids = [aws_security_group.default.id]
-  key_name               = "oblicza-key"
+  key_name               = var.key_name
 
   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
 
   user_data = file("init.sh")
 
   depends_on = [
-    aws_db_instance.oblicza
+    aws_db_instance.db
   ]
 
   tags = {
-    Name = "oblicza"
+    Name = var.app_name
   }
 }
 
-resource "aws_key_pair" "oblicza-key" {
-  key_name   = "oblicza-key"
-  public_key = file("~/.ssh/id_ed25519.pub")
+resource "aws_key_pair" "oblicza_key" {
+  key_name   = var.key_name
+  public_key = file(var.key_filename)
 }
 

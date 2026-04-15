@@ -1,6 +1,6 @@
 output "ec2_public_ip" {
   description = "Public IP of EC2 instance"
-  value       = aws_instance.oblicza.public_ip
+  value       = aws_instance.ec2.public_ip
 }
 
 output "rds_cred_secret_arn" {
@@ -10,7 +10,7 @@ output "rds_cred_secret_arn" {
 
 output "rds_hostname" {
   description = "RDS instance hostname"
-  value       = aws_db_instance.oblicza.address
+  value       = aws_db_instance.db.address
 }
 
 output "rds_password" {
@@ -21,12 +21,12 @@ output "rds_password" {
 
 output "mysql_command" {
   description = "mysql command to log in to RDS"
-  value       = "mysql -h ${aws_db_instance.oblicza.address} -u admin -p data"
+  value       = "mysql -h ${aws_db_instance.db.address} -u admin -p data"
   sensitive   = true
 }
 
 output "ssh_command" {
   description = "ssh command to log in to EC2"
-  value       = "ssh ubuntu@${aws_instance.oblicza.public_ip}"
+  value       = "ssh ubuntu@${aws_instance.ec2.public_ip}"
   sensitive   = true
 }
