@@ -1,7 +1,7 @@
-## AWS infrastructure for hosting ObliczaKalisza app build with Terraform
+## AWS infrastructure for hosting ObliczaKalisza app built with Terraform
 *only for demonstration purposes*
 
-Application [repository](#https://github.com/dhpasta/ObliczaKalisza)
+Application [repository](https://github.com/dhpasta/ObliczaKalisza)
 
 ### Features:
 - **variables** - parameters necessary for configuration can be loaded as variables, paths for aws credentials and key pair are omitted in this repository,
@@ -15,15 +15,15 @@ Application [repository](#https://github.com/dhpasta/ObliczaKalisza)
 - in `terraform.tfvars` change `aws_region` and `instance_type` for prefered. Change other values if needed,
 - create `local.auto.tfvars` file and assign values to `credentials_files` and `key_filename`, according to variables description,
 - `init` and `apply` Terraform configuration,
-- wait until EC2 is initialized and `init.sh` is executed completely, Terraform will check for instance to be accessible,
+- wait until EC2 is initialized and `init.sh` is executed completely. Terraform will check for instance to be accessible,
 - access running application by visiting outputted `ec2_public_ip`.
 
 ### init.sh
-Bash script provided on EC2 launch:
+Script provided on EC2 launch:
 - installs MySQL client for database manual inspections,
 - installs and enables Docker for app activation,
 - clones app repository,
 - configures app files and builds up containers with application.
 
 ---
-Provided under the terms of the [Apache License](LICENSE).
+Provided under the terms of the [Apache License](LICENCE).
