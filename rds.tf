@@ -81,30 +81,8 @@ resource "aws_iam_policy" "get_rds_passwd" {
   })
 }
 
-resource "aws_iam_role" "ec2_rds_connection" {
-  name = "ec2_rds_connection"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        }
-      },
-    ]
-  })
-}
-
-resource "aws_iam_role_policy_attachment" "ec2_iam" {
-  role       = aws_iam_role.ec2_rds_connection.name
+resource "aws_iam_role_policy_attachment" "ec2_rds_iam" {
+  role       = aws_iam_role.ec2.name
   policy_arn = aws_iam_policy.get_rds_passwd.arn
 }
 
-resource "aws_iam_instance_profile" "ec2_profile" {
-  name = "ec2_to_rds_access_profile"
-  role = aws_iam_role.ec2_rds_connection.name
-}

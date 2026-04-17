@@ -5,8 +5,8 @@ variable "aws_region" {
 }
 
 variable "credentials_files" {
-  description = "local credentails files list, store in local.auto.tfvars"
-  type        = list
+  description = "aws credentails files list, store in local.auto.tfvars"
+  type        = list(any)
 }
 
 variable "app_name" {
@@ -27,17 +27,17 @@ variable "key_name" {
 
 variable "key_filename" {
   type        = string
-  description = "aws_key_pair public_key filename, store in local.auto.tfvars"
+  description = "local aws_key_pair public_key filename, ed25519, store in local.auto.tfvars"
 }
 
 variable "db_username" {
   type        = string
   description = "created database username"
-  default = "admin"
+  default     = "admin"
 }
 
 variable "db_name" {
   type        = string
   description = "created database name"
-  default = "data"
+  default     = "data"
 }
